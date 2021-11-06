@@ -44,7 +44,7 @@
 
 // Some symbolic constants for clarity
 constexpr char number = '8';
-constexpr char exit = 'x';
+constexpr char off = 'x';
 constexpr char print = '=';
 constexpr char name = 'a';
 constexpr char let = 'L';
@@ -152,7 +152,7 @@ Token Token_stream::get()
 	switch (ch)
 	{
 		case print:
-		case exit:
+		case off:
 		case ',':
 		case '(':
 		case ')':
@@ -222,7 +222,7 @@ void calculate()
 	try {
 		Token t = ts.get();
 		while (t.kind == print) t = ts.get();
-		if (t.kind == quit) return;
+		if (t.kind == off) return;
 		ts.putback(t);
 		cout << result << statement() << endl;
 	}
@@ -262,6 +262,7 @@ try {
 double calc_sqrt(){
 
 		if(ts.get().kind!= '(') error("'(' expected");
+		if(ts.get().kind!= ')') error("')' expected");
 		double d = expression();
 		if(d<0) error("sqrt: negative value");
 		ts.get();
@@ -273,8 +274,8 @@ double calc_pow(){
 
 		double d = expression();
 		if(ts.get().kind==',') k=narrow_cast<int>(expression());
-
-		ts.get();
+		if(ts.get().kind!= ')') error("')' expected");
+		
 		return pow(d,k);
 
 }
