@@ -32,7 +32,7 @@ while(cin>>fnumber>>snumber)
 						if((bigger-lower)<=0.01) cout<<"The numbers are almost equal.\n"; 
 
 								if(biggest<fnumber) biggest=fnumber;
-								if(biggest<snumber) biggest=snumber;-
+								if(biggest<snumber) biggest=snumber;
 									
 						
 							}
